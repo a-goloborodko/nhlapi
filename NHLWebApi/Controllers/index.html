@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="jquery-1.10.2.min.js"></script>
+</head>
+<body>
+
+    <script>
+        var teams = [];
+
+        $(document).ready(function () {
+            $.get("https://statsapi.web.nhl.com/api/v1/teams", function (data) {
+                for (var i = 0; i < data.teams.length; i++) {
+                    var team = {
+                        Id: data.teams[i].id,
+                        Name: data.teams[i].name,
+                        Link: data.teams[i].link,
+                        Abbreviation: data.teams[i].abbreviation,
+                        TeamName: data.teams[i].teamName,
+                        LocationName: data.teams[i].locationName,
+                        FirstYearOfPlay: data.teams[i].firstYearOfPlay,
+                        DivisionId: data.teams[i].division.id,
+                        ConferenceId: data.teams[i].conference.id,
+                        OfficialSiteUrl: data.teams[i].officialSiteUrl,
+                        ShortName: data.teams[i].shortName,
+                        Active: data.teams[i].active,
+                    }
+
+                    teams.push(team);
+                }
+
+                //$.post("http://localhost:2792/api/test/import", teams);
+
+
+                //import Teams to database
+    //            $.ajax
+    //({
+    //    type: "POST",
+    //    //the url where you want to sent the userName and password to
+    //    url: 'api/test/import',
+    //    dataType: 'json',
+    //    async: true,
+    //    //json object to sent to the authentication url
+    //    data: JSON.stringify(teams),
+    //    success: function (data) {
+    //        alert('Данные отправлены');
+    //    },
+    //    contentType: "application/json;charset=utf-8",
+    //})
+            });
+        });
+    </script>
+</body>
+</html>
