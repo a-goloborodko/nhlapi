@@ -1,71 +1,91 @@
-﻿using Core.Data;
-using Core.Interfaces;
+﻿using Core.Abstract;
+using Core.Data;
+using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DAL.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity>
+    public class Repository<TEntity> : Disposable, IRepository<TEntity>
         where TEntity : BaseEntity
     {
-        //TODO: изменить EFDbContext на custom интерфейс IContext
-        private readonly EFDbContext _context;
-        private readonly IDbSet<TEntity> _dbSet;
-        private bool _disposed;
+        private readonly DbContext _context;
+        private readonly DbSet<TEntity> _dbSet;
 
-        public Repository(EFDbContext context)
+        public Repository(DbContext context)
         {
             _context = context;
             _dbSet = _context.Set<TEntity>();
         }
 
         //TODO: add GetAllIncluding
-        public IEnumerable<TEntity> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
             return _dbSet.ToList();
         }
 
-        public void Insert(TEntity entity)
+        public virtual IEnumerable<TEntity> GetMany(Expression<Func<TEntity, bool>> where)
         {
-            _context.SetAsAdded(entity);
+            return _dbSet.Where(where).ToList();
         }
 
-        public void Update(TEntity entity)
+        public virtual TEntity GetById(int id)
         {
-            _context.SetAsModified(entity);
+            return _dbSet.Find(id);
         }
 
-        public void Delete(TEntity entity)
+        public virtual TEntity Get(Expression<Func<TEntity, bool>> where)
         {
-            _context.SetAsDeleted(entity);
+            return _dbSet.Where(where).FirstOrDefault();
         }
 
-        public TEntity FindById(int entityId)
+        public virtual void Add(TEntity entity)
         {
-            return _dbSet.FirstOrDefault(x => x.Id == entityId);
+            _context.Entry<TEntity>(entity).State = EntityState.Added;
         }
 
-        //TODO: вынести в context в транзакции
-        public void SaveChanges()
+        public virtual void AddRange(IEnumerable<TEntity> entities)
         {
-            _context.SaveChanges();
+            if (entities != null)
+                _dbSet.AddRange(entities);
         }
 
-        protected virtual void Dispose(bool disposing)
+        public virtual void Update(TEntity entity)
         {
-            if (!_disposed && disposing)
+            if (entity != null)
+                _context.Entry<TEntity>(entity).State = EntityState.Modified;
+        }
+
+        public virtual void Delete(int entityId)
+        {
+            TEntity entity = default(TEntity);
+            entity.Id = entityId;
+
+            Delete(entity);
+        }
+
+        public virtual void Delete(TEntity entity)
+        {
+            if (entity != null)
+                _context.Entry<TEntity>(entity).State = EntityState.Deleted;
+        }
+
+        public virtual void Delete(Expression<Func<TEntity, bool>> where)
+        {
+            IEnumerable<TEntity> entities = _dbSet.Where(where).AsEnumerable();
+            foreach (var entity in entities)
             {
-                _context.Dispose();
+                Delete(entity);
             }
-            _disposed = true;
         }
 
-        public void Dispose()
+        protected override void DisposeCore()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (_context != null)
+                _context.Dispose();
         }
     }
 }

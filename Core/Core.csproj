@@ -39,14 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\Disposable.cs" />
     <Compile Include="Data\Conference.cs" />
     <Compile Include="Data\Division.cs" />
     <Compile Include="Data\BaseEntity.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Data\Season.cs" />
+    <Compile Include="Data\TeamStatistic.cs" />
+    <Compile Include="Enums\GameType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\Team.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

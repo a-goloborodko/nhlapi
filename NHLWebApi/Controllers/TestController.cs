@@ -1,13 +1,10 @@
-﻿using Core.Data;
-using Core.Interfaces;
+﻿using System.Collections.Generic;
+using System.Web.Http;
+using Core.Data;
+using DAL.Interfaces;
 using DAL.Repositories;
 using NHLWebApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+using DAL.Infrastructure;
 
 namespace NHLWebApi.Controllers
 {
@@ -17,7 +14,7 @@ namespace NHLWebApi.Controllers
         private IRepository<Team> _repository;
         public TestController()
         {
-            _repository = new Repository<Team>(new EFDbContext());
+            _repository = new Repository<Team>(new DbContext());
         }
 
         [HttpPost]
@@ -26,7 +23,7 @@ namespace NHLWebApi.Controllers
         {
             foreach (TeamModel team in teams)
             {
-                _repository.Insert(new Team
+                _repository.Add(new Team
                 {
                     Id = team.Id,
                     Name = team.Name,
@@ -43,7 +40,7 @@ namespace NHLWebApi.Controllers
                 });
             }
 
-            _repository.SaveChanges();
+            // _repository.SaveChanges();
 
             return Ok();
         }

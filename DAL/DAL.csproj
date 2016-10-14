@@ -46,7 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\EFDbContext.cs" />
+    <Compile Include="Infrastructure\DbFactory.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="Interfaces\IDbFactory.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Mapping\SeasonMapping.cs" />
+    <Compile Include="Mapping\TeamStatisticMapping.cs" />
+    <Compile Include="Infrastructure\DbContext.cs" />
     <Compile Include="Mapping\ConferencesMapping.cs" />
     <Compile Include="Mapping\DivisionsMapping.cs" />
     <Compile Include="Mapping\TeamMapping.cs" />

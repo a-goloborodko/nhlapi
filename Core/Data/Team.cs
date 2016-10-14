@@ -1,4 +1,6 @@
-﻿namespace Core.Data
+﻿using System.Collections.Generic;
+
+namespace Core.Data
 {
     public class Team : BaseEntity
     {
@@ -15,5 +17,6 @@
         public string OfficialSiteUrl { get; set; }
         public string ShortName { get; set; }
         public bool Active { get; set; }
+        public virtual ICollection<TeamStatistic> TeamStats { get; set; }
     }
 }
