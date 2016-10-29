@@ -1,7 +1,6 @@
 ﻿using System;
-using Core.Enums;
 
-namespace Core.Data
+namespace Core.Models
 {
     public class TeamStatistic : BaseEntity
     {

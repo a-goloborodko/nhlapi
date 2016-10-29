@@ -1,5 +1,5 @@
 ﻿using Core.Abstract;
-using Core.Data;
+using Core.Models;
 using DAL.Interfaces;
 using DAL.Repositories;
 using System;
@@ -59,6 +59,14 @@ namespace DAL.Infrastructure
         {
             if (_context != null)
                 _context.Dispose();
+
+            if (_repositories != null)
+            {
+                foreach (IDisposable repository in _repositories.Values)
+                {
+                    repository.Dispose();
+                }
+            }
         }
     }
 }

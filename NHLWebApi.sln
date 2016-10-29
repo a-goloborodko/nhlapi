@@ -1,13 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHLWebApi", "NHLWebApi\NHLWebApi.csproj", "{0D372B4D-D1AD-474D-817C-6CC67AE380D3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{421BFA31-45DC-48DD-86F4-A659104E9185}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{50A9EC8B-DEC7-4D07-8DB8-1766379AEEC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{70B98E9D-18D9-40AA-B298-D3D539AD2909}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{2FC9B5EE-8B05-44E5-A761-9B2ED93DD068}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synchronization", "Synchronization\Synchronization.csproj", "{AF128BD6-D3A1-4AC2-9A7E-F8F948AE7568}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +33,18 @@ Global
 		{50A9EC8B-DEC7-4D07-8DB8-1766379AEEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50A9EC8B-DEC7-4D07-8DB8-1766379AEEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50A9EC8B-DEC7-4D07-8DB8-1766379AEEC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70B98E9D-18D9-40AA-B298-D3D539AD2909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B98E9D-18D9-40AA-B298-D3D539AD2909}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B98E9D-18D9-40AA-B298-D3D539AD2909}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B98E9D-18D9-40AA-B298-D3D539AD2909}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FC9B5EE-8B05-44E5-A761-9B2ED93DD068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FC9B5EE-8B05-44E5-A761-9B2ED93DD068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FC9B5EE-8B05-44E5-A761-9B2ED93DD068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FC9B5EE-8B05-44E5-A761-9B2ED93DD068}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF128BD6-D3A1-4AC2-9A7E-F8F948AE7568}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF128BD6-D3A1-4AC2-9A7E-F8F948AE7568}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF128BD6-D3A1-4AC2-9A7E-F8F948AE7568}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF128BD6-D3A1-4AC2-9A7E-F8F948AE7568}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

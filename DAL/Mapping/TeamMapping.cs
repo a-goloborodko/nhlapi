@@ -1,4 +1,4 @@
-﻿using Core.Data;
+﻿using Core.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
@@ -21,9 +21,12 @@ namespace DAL.Mapping
             Property(x => x.ConferenceId).IsRequired();
             Property(x => x.OfficialSiteUrl).HasMaxLength(50);
             Property(x => x.Name).HasMaxLength(50);
+
+            // Relationships
             HasRequired<Division>(x => x.Division)
                 .WithMany(x => x.Teams)
                 .HasForeignKey(x => x.DivisionId);
+
             HasRequired<Conference>(x => x.Conference)
                .WithMany(x => x.Teams)
                .HasForeignKey(x => x.ConferenceId);

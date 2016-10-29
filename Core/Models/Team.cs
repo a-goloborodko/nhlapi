@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core.Data
+namespace Core.Models
 {
     public class Team : BaseEntity
     {
@@ -18,5 +18,6 @@ namespace Core.Data
         public string ShortName { get; set; }
         public bool Active { get; set; }
         public virtual ICollection<TeamStatistic> TeamStats { get; set; }
+        public virtual ICollection<TeamDetailStatistic> TeamDetailStatistics { get; set; }
     }
 }

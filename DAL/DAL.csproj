@@ -52,6 +52,7 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Mapping\SeasonMapping.cs" />
+    <Compile Include="Mapping\TeamDetailStatisticMap.cs" />
     <Compile Include="Mapping\TeamStatisticMapping.cs" />
     <Compile Include="Infrastructure\DbContext.cs" />
     <Compile Include="Mapping\ConferencesMapping.cs" />

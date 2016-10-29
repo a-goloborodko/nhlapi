@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using Core.Data;
+using Core.Models;
 using DAL.Interfaces;
 using DAL.Repositories;
 using NHLWebApi.Models;

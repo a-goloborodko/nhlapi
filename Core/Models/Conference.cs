@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core.Data
+namespace Core.Models
 {
     public class Conference : BaseEntity
     {

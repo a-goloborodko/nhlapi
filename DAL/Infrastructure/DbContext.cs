@@ -1,4 +1,4 @@
-﻿using Core.Data;
+﻿using Core.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
