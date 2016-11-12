@@ -37,23 +37,24 @@ namespace Synchronization
 
             //string url = @"http://www.nhl.com/stats/rest/grouped/teams/season/teamsummary?cayenneExp=seasonId=";
             string url = ApiUrls.TeamStatistic;
-            url += _seasonHelper.SeasonId.ToString();
+            url += _seasonHelper.CurrentSeasonId.ToString();
             url += @"%20and%20gameTypeId=";
             url += ((int)GameType.RegularSeason).ToString();
 
-            TeamStatisticModel teamStatisticsModel;
+            //TeamStatisticModel teamStatisticsModel;
+            ImportDataModel<TeamStatistic> teamStatisticsModel;
 
             using (WebClient client = new WebClient())
             using (Stream stream = client.OpenRead(url))
             using (StreamReader reader = new StreamReader(stream))
             {
-                teamStatisticsModel = Newtonsoft.Json.JsonConvert.DeserializeObject<TeamStatisticModel>(reader.ReadToEnd().ToString());
+                teamStatisticsModel = Newtonsoft.Json.JsonConvert.DeserializeObject<ImportDataModel<TeamStatistic>>(reader.ReadToEnd().ToString());
             }
 
             if (teamStatisticsModel != null && teamStatisticsModel.Total > 0)
             {
                 //delete old stat from db
-                int seasonId = _seasonHelper.SeasonId;
+                int seasonId = _seasonHelper.CurrentSeasonId;
                 _repositoryTeamStat.Delete(x => x.SeasonId == seasonId);
                 _unitOfWork.Commit();
 
@@ -65,21 +66,22 @@ namespace Synchronization
 
         public void UpdateDetailStatistics()
         {
-            string url = string.Format(ApiUrls.TeamDetailStatistic, _seasonHelper.SeasonId.ToString(), ((int)GameType.RegularSeason));
+            string url = string.Format(ApiUrls.TeamDetailStatistic, _seasonHelper.CurrentSeasonId.ToString(), ((int)GameType.RegularSeason));
 
-            TeamDetailStatisticModel teamDetailStatisticsModel;
+            //TeamDetailStatisticModel teamDetailStatisticsModel;
+            ImportDataModel<TeamDetailStatistic> teamDetailStatisticsModel;
 
             using (WebClient client = new WebClient())
             using (Stream stream = client.OpenRead(url))
             using (StreamReader reader = new StreamReader(stream))
             {
-                teamDetailStatisticsModel = Newtonsoft.Json.JsonConvert.DeserializeObject<TeamDetailStatisticModel>(reader.ReadToEnd().ToString());
+                teamDetailStatisticsModel = Newtonsoft.Json.JsonConvert.DeserializeObject<ImportDataModel<TeamDetailStatistic>>(reader.ReadToEnd().ToString());
             }
 
             if (teamDetailStatisticsModel != null && teamDetailStatisticsModel.Total > 0)
             {
                 //delete old stat from db
-                int seasonId = _seasonHelper.SeasonId;
+                int seasonId = _seasonHelper.CurrentSeasonId;
                 _repositoryTeamDetailStat.Delete(x => x.SeasonId == seasonId);
                 _unitOfWork.Commit();
 
@@ -87,6 +89,11 @@ namespace Synchronization
                 _repositoryTeamDetailStat.AddRange(teamDetailStatisticsModel.Data);
                 _unitOfWork.Commit();
             }
+        }
+
+        public void UpdatePlayerStatistics()
+        {
+
         }
 
         protected override void DisposeCore()

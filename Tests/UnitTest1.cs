@@ -9,6 +9,7 @@ namespace Tests
         [TestMethod]
         public void TestMethod1()
         {
+            //TODO: someday here will be tests
         }
     }
 }

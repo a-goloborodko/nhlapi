@@ -14,7 +14,7 @@ namespace NHLWebApi.Controllers
         private IRepository<Team> _repository;
         public TestController()
         {
-            _repository = new Repository<Team>(new DbContext());
+            _repository = new Repository<Team>(new EfContext());
         }
 
         [HttpPost]

@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Synchronization.Models
 {
-    public class TeamDetailStatisticModel
+    public class ImportDataModel<T>
+        where T: BaseEntity
     {
-        public List<TeamDetailStatistic> Data { get; set; }
+        public List<T> Data { get; set; }
         public int Total { get; set; }
     }
 }

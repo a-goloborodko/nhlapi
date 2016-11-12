@@ -8,7 +8,7 @@ namespace Core.Helpers
         private int _seasonStartYear;
         private int _seasonEndYear;
 
-        public int SeasonId
+        public int CurrentSeasonId
         {
             get
             {
@@ -17,11 +17,11 @@ namespace Core.Helpers
                     return _seasonId;
                 }
 
-                _seasonId = SeasonStartYear * 10000 + SeasonEndYear;
+                _seasonId = CurrentSeasonStartYear * 10000 + CurrentSeasonEndYear;
                 return _seasonId;
             }
         }
-        public int SeasonStartYear
+        public int CurrentSeasonStartYear
         {
             get
             {
@@ -45,7 +45,7 @@ namespace Core.Helpers
                 }
             }
         }
-        public int SeasonEndYear
+        public int CurrentSeasonEndYear
         {
             get
             {
@@ -68,6 +68,24 @@ namespace Core.Helpers
                     return _seasonEndYear;
                 }
             }
+        }
+
+        public static int GetSeasonId(int startYear, int endYear)
+        {
+            if (endYear - startYear != 1)
+                throw new ArgumentException("Not valid values of inpur years");
+            return startYear * 10000 + endYear;
+        }
+
+        public static int GetSeasonId(string startYear, string endYear)
+        {
+            int start = 0;
+            int end = 0;
+            bool isSuccessParseDates = int.TryParse(startYear, out start) && int.TryParse(endYear, out end);
+            if (!isSuccessParseDates || end - start != 1)
+                throw new ArgumentException("Not valid values of inpur years");
+
+            return start * 10000 + end;
         }
     }
 }

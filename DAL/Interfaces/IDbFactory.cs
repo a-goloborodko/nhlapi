@@ -5,6 +5,6 @@ namespace DAL.Interfaces
 {
     public interface IDbFactory : IDisposable
     {
-        DbContext Init();
+        EfContext Init();
     }
 }

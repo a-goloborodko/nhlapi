@@ -10,7 +10,7 @@ namespace DAL.Infrastructure
 {
     public class UnitOfWork : Disposable, IUnitOfWork
     {
-        private DbContext _context;
+        private EfContext _context;
         private readonly IDbFactory _factory;
         private Hashtable _repositories;
 
@@ -25,7 +25,7 @@ namespace DAL.Infrastructure
             _repositories = new Hashtable();
         }
 
-        public DbContext DbContext
+        public EfContext DbContext
         {
             get { return _context ?? (_context = _factory.Init()); }
         }

@@ -44,6 +44,8 @@
     <Compile Include="Models\Conference.cs" />
     <Compile Include="Models\Division.cs" />
     <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\PlayerStatistic.cs" />
     <Compile Include="Models\Season.cs" />
     <Compile Include="Models\TeamDetailStatistic.cs" />
     <Compile Include="Models\TeamStatistic.cs" />

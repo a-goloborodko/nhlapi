@@ -54,8 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\TeamDetailStatisticModel.cs" />
-    <Compile Include="Models\TeamStatisticModel.cs" />
+    <Compile Include="Models\ImportDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyncService.cs" />
   </ItemGroup>

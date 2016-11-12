@@ -6,11 +6,11 @@ namespace DAL.Infrastructure
 {
     public class DbFactory : Disposable, IDbFactory
     {
-        private DbContext _context;
+        private EfContext _context;
 
-        public DbContext Init()
+        public EfContext Init()
         {
-            return _context ?? (_context = new DbContext());
+            return _context ?? (_context = new EfContext());
         }
 
         protected override void DisposeCore()

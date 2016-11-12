@@ -61,6 +61,15 @@ namespace Core.Sorces {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to link=/api/v1/people/{0}.
+        /// </summary>
+        public static string PlayerProfile {
+            get {
+                return ResourceManager.GetString("PlayerProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://www.nhl.com/stats/rest/grouped/teams/enhanced/season/teampercentages?cayenneExp=seasonId={0}%20and%20gameTypeId={1}.
         /// </summary>
         public static string TeamDetailStatistic {
