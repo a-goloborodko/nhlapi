@@ -15,7 +15,7 @@ namespace DAL.Interfaces
         void Delete(int entityId);
         void Delete(TEntity entity);
         void Delete(Expression<Func<TEntity, bool>> where);
-        TEntity GetById(int id);
+        TEntity GetById(long id);
         TEntity Get(Expression<Func<TEntity, bool>> where);
         void AddRange(IEnumerable<TEntity> entities);
     }

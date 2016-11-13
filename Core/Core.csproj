@@ -52,7 +52,7 @@
     <Compile Include="Enums\GameType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Team.cs" />
-    <Compile Include="Sorces\ApiUrls.Designer.cs">
+    <Compile Include="Sources\ApiUrls.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ApiUrls.resx</DependentUpon>
@@ -62,7 +62,7 @@
     <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Sorces\ApiUrls.resx">
+    <EmbeddedResource Include="Sources\ApiUrls.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ApiUrls.Designer.cs</LastGenOutput>
     </EmbeddedResource>

@@ -55,6 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\ImportDataModel.cs" />
+    <Compile Include="Models\PlayerProfile\PlayerModel.cs" />
+    <Compile Include="Models\PlayerProfile\PlayerProfileModel.cs" />
+    <Compile Include="Models\PlayerProfile\PositionModel.cs" />
+    <Compile Include="Models\PlayerProfile\TeamModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyncService.cs" />
   </ItemGroup>

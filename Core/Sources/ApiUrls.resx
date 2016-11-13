@@ -118,7 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PlayerProfile" xml:space="preserve">
-    <value>link=/api/v1/people/{0}</value>
+    <value>https://statsapi.web.nhl.com/api/v1/people/{0}</value>
+  </data>
+  <data name="PlayerStatistics" xml:space="preserve">
+    <value>http://www.nhl.com/stats/rest/individual/skaters/season/skatersummary?cayenneExp=seasonId={0}%20and%20gameTypeId={1}</value>
   </data>
   <data name="TeamDetailStatistic" xml:space="preserve">
     <value>http://www.nhl.com/stats/rest/grouped/teams/enhanced/season/teampercentages?cayenneExp=seasonId={0}%20and%20gameTypeId={1}</value>

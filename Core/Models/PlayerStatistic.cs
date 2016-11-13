@@ -6,6 +6,7 @@ namespace Core.Models
     public partial class PlayerStatistic : BaseEntity
     {
         public long PlayerId { get; set; }
+        public long SeasonId { get; set; }
         public int Assists { get; set; }
         public decimal FaceoffWinPctg { get; set; }
         public int GamesPlayed { get; set; }

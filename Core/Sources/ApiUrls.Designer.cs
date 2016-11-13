@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Core.Sorces {
+namespace Core.Sources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Core.Sorces {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Sorces.ApiUrls", typeof(ApiUrls).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Sources.ApiUrls", typeof(ApiUrls).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,20 @@ namespace Core.Sorces {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to link=/api/v1/people/{0}.
+        ///   Looks up a localized string similar to https://statsapi.web.nhl.com/api/v1/people/{0}.
         /// </summary>
         public static string PlayerProfile {
             get {
                 return ResourceManager.GetString("PlayerProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.nhl.com/stats/rest/individual/skaters/season/skatersummary?cayenneExp=seasonId={0}%20and%20gameTypeId={1}.
+        /// </summary>
+        public static string PlayerStatistics {
+            get {
+                return ResourceManager.GetString("PlayerStatistics", resourceCulture);
             }
         }
         

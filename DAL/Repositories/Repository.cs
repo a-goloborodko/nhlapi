@@ -32,7 +32,7 @@ namespace DAL.Repositories
             return _dbSet.Where(where).ToList();
         }
 
-        public virtual TEntity GetById(int id)
+        public virtual TEntity GetById(long id)
         {
             return _dbSet.Find(id);
         }

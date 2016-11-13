@@ -13,12 +13,13 @@ namespace DAL.Mapping
 
             // Properties
             this.Property(t => t.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             // Table & Column Mappings
             this.ToTable("PlayerStatistics");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.PlayerId).HasColumnName("PlayerId");
+            this.Property(t => t.SeasonId).HasColumnName("SeasonId");
             this.Property(t => t.Assists).HasColumnName("Assists");
             this.Property(t => t.FaceoffWinPctg).HasColumnName("FaceoffWinPctg");
             this.Property(t => t.GamesPlayed).HasColumnName("GamesPlayed");

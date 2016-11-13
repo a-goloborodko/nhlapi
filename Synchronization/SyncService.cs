@@ -8,7 +8,10 @@ using DAL.Infrastructure;
 using Core.Abstract;
 using Core.Enums;
 using System.Web;
-using Core.Sorces;
+using Core.Sources;
+using System;
+using System.Linq;
+using Synchronization.Models.PlayerProfile;
 
 namespace Synchronization
 {
@@ -16,6 +19,8 @@ namespace Synchronization
     {
         private IRepository<TeamStatistic> _repositoryTeamStat;
         private IRepository<TeamDetailStatistic> _repositoryTeamDetailStat;
+        private IRepository<PlayerStatistic> _repositoryPlayerStatistics;
+        private IRepository<Player> _repositoryPlayers;
         private IUnitOfWork _unitOfWork;
         private IDbFactory _dbFactory;
         SeasonHelper _seasonHelper = new SeasonHelper();
@@ -25,6 +30,8 @@ namespace Synchronization
             _unitOfWork = new UnitOfWork(_dbFactory);
             _repositoryTeamStat = _unitOfWork.GetRepository<TeamStatistic>();
             _repositoryTeamDetailStat = _unitOfWork.GetRepository<TeamDetailStatistic>();
+            _repositoryPlayerStatistics = _unitOfWork.GetRepository<PlayerStatistic>();
+            _repositoryPlayers = _unitOfWork.GetRepository<Player>();
         }
 
         public void UpdateTeamStat()
@@ -41,7 +48,6 @@ namespace Synchronization
             url += @"%20and%20gameTypeId=";
             url += ((int)GameType.RegularSeason).ToString();
 
-            //TeamStatisticModel teamStatisticsModel;
             ImportDataModel<TeamStatistic> teamStatisticsModel;
 
             using (WebClient client = new WebClient())
@@ -68,7 +74,6 @@ namespace Synchronization
         {
             string url = string.Format(ApiUrls.TeamDetailStatistic, _seasonHelper.CurrentSeasonId.ToString(), ((int)GameType.RegularSeason));
 
-            //TeamDetailStatisticModel teamDetailStatisticsModel;
             ImportDataModel<TeamDetailStatistic> teamDetailStatisticsModel;
 
             using (WebClient client = new WebClient())
@@ -93,7 +98,94 @@ namespace Synchronization
 
         public void UpdatePlayerStatistics()
         {
+            string url = string.Format(ApiUrls.PlayerStatistics, _seasonHelper.CurrentSeasonId.ToString(), ((int)GameType.RegularSeason));
 
+            ImportDataModel<PlayerStatistic> playerStatisticsModel;
+
+            using (WebClient client = new WebClient())
+            using (Stream stream = client.OpenRead(url))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                playerStatisticsModel = Newtonsoft.Json.JsonConvert.DeserializeObject<ImportDataModel<PlayerStatistic>>(reader.ReadToEnd().ToString());
+            }
+
+            if (playerStatisticsModel != null && playerStatisticsModel.Total > 0)
+            {
+                //delete old stat from db
+                int seasonId = _seasonHelper.CurrentSeasonId;
+                _repositoryPlayerStatistics.Delete(x => x.SeasonId == seasonId);
+                _unitOfWork.Commit();
+
+                //Save new data
+                //Add player profile if not exist
+                int currentSeasonId = _seasonHelper.CurrentSeasonId;
+
+                foreach (var playerStat in playerStatisticsModel.Data.ToList())
+                {
+                    playerStat.SeasonId = currentSeasonId;
+
+                    Player player = _repositoryPlayers.GetById(playerStat.PlayerId);
+
+                    //create player profile
+                    if (player == null)
+                    {
+                        string playerUrl = string.Format(ApiUrls.PlayerProfile, playerStat.PlayerId);
+                        PlayerProfileModel playerProfileModel;
+
+
+                        using (WebClient client = new WebClient())
+                        using (Stream stream = client.OpenRead(playerUrl))
+                        using (StreamReader reader = new StreamReader(stream))
+                        {
+                            playerProfileModel = Newtonsoft.Json.JsonConvert.DeserializeObject<PlayerProfileModel>(reader.ReadToEnd().ToString());
+
+                            Player playerToInsert = GetPlayerFromModel(playerProfileModel);
+
+                            if (playerToInsert != null)
+                            {
+                                _repositoryPlayers.Add(playerToInsert);
+                                playerStat.Player = playerToInsert;
+                            }
+                            //don't save player without team 
+                            else
+                            {
+                                playerStatisticsModel.Data.Remove(playerStat);
+                            }
+                        }
+                    }
+                }
+
+                _repositoryPlayerStatistics.AddRange(playerStatisticsModel.Data);
+                _unitOfWork.Commit();
+            }
+        }
+
+        private Player GetPlayerFromModel(PlayerProfileModel people)
+        {
+            PlayerModel playerModel = people.People.First();
+            if (people.People.First().CurrentTeam == null)
+                return null;
+
+            return new Player
+            {
+                Id = playerModel.Id,
+                Active = playerModel.Active,
+                AlternateCaptain = playerModel.AlternateCaptain,
+                BirthCity = playerModel.BirthCity,
+                BirthCountry = playerModel.BirthCountry,
+                BirthDate = playerModel.BirthDate,
+                Captain = playerModel.Captain,
+                FirstName = playerModel.FirstName,
+                Height = playerModel.Height,
+                LastName = playerModel.LastName,
+                Link = playerModel.Link,
+                Nationality = playerModel.Nationality,
+                Position = playerModel.PrimaryPosition.Abbreviation,
+                PrimaryNumber = playerModel.PrimaryNumber,
+                Rookie = playerModel.Rookie,
+                Weight = playerModel.Weight,
+                TeamId = playerModel.CurrentTeam.Id
+            };
         }
 
         protected override void DisposeCore()
@@ -109,6 +201,12 @@ namespace Synchronization
 
             if (_repositoryTeamDetailStat != null)
                 _repositoryTeamDetailStat.Dispose();
+
+            if (_repositoryPlayerStatistics != null)
+                _repositoryPlayerStatistics.Dispose();
+
+            if (_repositoryPlayers != null)
+                _repositoryPlayers.Dispose();
         }
     }
 }
